@@ -3,9 +3,9 @@
 #include "list.c"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-//²åÈëÊý¾Ý 
+//æ’å…¥æ•°æ® 
 void insert();
-//¼ÆËãÓÅÏÈ¼¶ 
+//è®¡ç®—ä¼˜å…ˆçº§ 
 void GetPriority(List * PList,int time);
 int HRRN(List * PList);
 int main(int argc, char** argv) {
@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 	HRRN(PList);
 	return 0;
 }
-//²åÈëÊý¾Ý 
+//æ’å…¥æ•°æ® 
 void insert(List * PList){
 	PCB * P;
 		do{
@@ -24,17 +24,17 @@ void insert(List * PList){
 		int severTime;
 		char judge;
 		
-		printf("%s","\nÇëÊäÈë½ø³ÌÃû\n");
+		printf("%s","\nè¯·è¾“å…¥è¿›ç¨‹å\n");
 		scanf("%c",&name);
-		printf("%s","ÇëÊäÈë½ø³Ìµ½´ïÊ±¼ä\n");
+		printf("%s","è¯·è¾“å…¥è¿›ç¨‹åˆ°è¾¾æ—¶é—´\n");
 		scanf("%d",&comeTime);
-		printf("%s","ÇëÊäÈë½ø³Ì·þÎñÊ±¼ä\n") ; 
+		printf("%s","è¯·è¾“å…¥è¿›ç¨‹æœåŠ¡æ—¶é—´\n") ; 
 		scanf("%d",&severTime);
 		P=InsertPCB(name,comeTime,severTime);
 		InsertNode(P,PList);
 		while(getchar()!='\n') 
 			continue;
-		printf("%s","»¹ÐèÊäÈë½ø³ÌÂð y/n\n"); 
+		printf("%s","è¿˜éœ€è¾“å…¥è¿›ç¨‹å— y/n\n"); 
 		scanf("%c",&judge);
 		while(getchar()!='\n') 
 			continue;
@@ -47,7 +47,7 @@ void insert(List * PList){
 		}
 	}while(true);
 } 
-// ¸ßÏìÓ¦±ÈËã·¨ 
+// é«˜å“åº”æ¯”ç®—æ³• 
 int HRRN(List * PList){
 	int time=0;
 	Node * temp;
@@ -56,45 +56,45 @@ int HRRN(List * PList){
 	current=*PList;	
 	while((*PList)->next != NULL){
 		
-		if(time==0){                                //³õÊ¼Ê±Ö»ÐèÒª±È½Ïµ½´ïÊ±¼ä¼´¿É 
+		if(time==0){                                //åˆå§‹æ—¶åªéœ€è¦æ¯”è¾ƒåˆ°è¾¾æ—¶é—´å³å¯ 
 			while(current->next	!=NULL){
 				current=current->next;
-				//ÏÈÀ´ÏÈ·þÎñ 
+				//å…ˆæ¥å…ˆæœåŠ¡ 
 				if(temp->data->ComeTime>current->data->ComeTime)
 					temp=current;
-				//Í¬Ê±µ½´ï£¬¶Ì×÷ÒµÓÅÏÈ	
+				//åŒæ—¶åˆ°è¾¾ï¼ŒçŸ­ä½œä¸šä¼˜å…ˆ	
 				else if(temp->data->ComeTime==current->data->ComeTime&&temp->data->ServerTime>current->data->ServerTime)
 					temp=current;				
 			}
 			
-			printf("½ø³ÌÃû:%c\n",temp->data->name);
-			printf("µ½´ïÊ±¼ä:%d\n",time);
-			printf("·þÎñÊ±¼ä:%d\n",temp->data->ServerTime);
+			printf("è¿›ç¨‹å:%c\n",temp->data->name);
+			printf("åˆ°è¾¾æ—¶é—´:%d\n",time);
+			printf("æœåŠ¡æ—¶é—´:%d\n",temp->data->ServerTime);
 			time=temp->data->ComeTime+temp->data->ServerTime;
 			DelectNode(PList,temp);	
 		}else{
 			while(current->next	!=NULL){
 	 			current=current->next; 
-	 			//ÓÅÏÈÈ¨¸ßµÄÏÈ·þÎñ 
+	 			//ä¼˜å…ˆæƒé«˜çš„å…ˆæœåŠ¡ 
 		 		if(temp->data->Level<current->data->Level)
 			 		temp=current;
-		 		//ÏàÍ¬ÓÅÏÈÈ¨ ÏÈÀ´ÏÈ·þÎñ 
+		 		//ç›¸åŒä¼˜å…ˆæƒ å…ˆæ¥å…ˆæœåŠ¡ 
 				 else if(temp->data->Level==current->data->Level&&temp->data->ComeTime>current->data->ComeTime)
 				 	temp=current;
  			}
  			
-			printf("\n½ø³ÌÃû:%c\n",temp->data->name);
-			printf("µ½´ïÊ±¼ä:%d\n",time);
-			printf("·þÎñÊ±¼ä:%d\n",temp->data->ServerTime);
+			printf("\nè¿›ç¨‹å:%c\n",temp->data->name);
+			printf("åˆ°è¾¾æ—¶é—´:%d\n",time);
+			printf("æœåŠ¡æ—¶é—´:%d\n",temp->data->ServerTime);
 			time = time+temp->data->ServerTime;
 			DelectNode(PList,temp);  
 		} 
 		GetPriority(PList,time);
 		temp = current = * PList;		
 	}
-	printf("½ø³ÌÃû:%c\n",temp->data->name);
-	printf("µ½´ïÊ±¼ä:%d\n",time);
-	printf("·þÎñÊ±¼ä:%d\n",temp->data->ServerTime);
+	printf("è¿›ç¨‹å:%c\n",temp->data->name);
+	printf("åˆ°è¾¾æ—¶é—´:%d\n",time);
+	printf("æœåŠ¡æ—¶é—´:%d\n",temp->data->ServerTime);
 	time=temp->data->ComeTime+temp->data->ServerTime;
 	DelectNode(PList,temp);	
 }
@@ -106,7 +106,7 @@ void GetPriority(List * PList,int time){
 			current->data->Level=1+(double)(time-current->data->ComeTime)/(double)(current->data->ServerTime);
 			
 		}else{
-			current->data->Level=9999.0;
+			current->data->Level=0.0;
 		}
 		current=current->next;
 		
@@ -115,6 +115,6 @@ void GetPriority(List * PList,int time){
 			current->data->Level=1+(double)(time-current->data->ComeTime)/(double)(current->data->ServerTime);
 			current=current->next;
 		}else{
-			current->data->Level=9999.0;
+			current->data->Level=0.0;
 		} 
 } 
